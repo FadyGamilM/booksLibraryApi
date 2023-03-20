@@ -1,0 +1,23 @@
+-- create the store table 
+CREATE TABLE IF NOT EXISTS STORE(
+    Id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    Name VARCHAR(200) NOT NULL,
+    Code INT NOT NULL,
+    Address VARCHAR(800) NOT NULL,
+    CreatedAt TIMESTAMPZ NOT NULL,
+    UpdatedAt TIMESTAMPZ NOT NULL,
+);
+
+-- create the book table 
+CREATE TABLE IF NOT EXISTS BOOK(
+    Id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    StoreId INT NOT NULL,
+    Title VARCHAR(400) NOT NULL,
+    PagesCount INT CHECK(PagesCount>0),
+    AuthorName VARCHAR(200) NOT NULL,
+    CreatedAt TIMESTAMPZ NOT NULL,
+    UpdatedAt TIMESTAMPZ NOT NULL,
+    CONSTRAINT store_fk
+        FOREIGN KEY (StoreId)
+        REFERENCES STORE(Id)
+);
